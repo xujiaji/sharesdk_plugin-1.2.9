@@ -1,0 +1,38 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://mvn.mob.com/android"
+        }
+        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven{ url'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
+        google()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.5.4'
+        classpath 'com.mob.sdk:MobSDK:+'
+    }
+}
+
+allprojects {
+    repositories {
+        maven {
+            url "https://mvn.mob.com/android"
+        }
+        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven{ url'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
+        google()
+    }
+}
+
+rootProject.buildDir = '../build'
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(':app')
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
